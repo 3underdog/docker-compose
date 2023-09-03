@@ -1,0 +1,19 @@
+services:
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+  frontend:
+    build: ../nangmanski_web_v2
+    container_name: frontend
+    volumes:
+      - ../nangmanski_web_v2:/usr/src/app/
+      - /usr/src/app/.next
+      - /usr/src/app/node_modules
+    expose:
+      - 3000
+    environment:
+      - VIRTUAL_HOST=${HOST}
