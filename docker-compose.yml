@@ -27,20 +27,18 @@ services:
       - DEFAULT_EMAIL=${EMAIL}
     restart: always
 
-  frontend:
-    build: ../nangmanski_web_v2
-    container_name: frontend
-    volumes:
-      - ../nangmanski_web_v2:/usr/src/app/
-      - /usr/src/app/.next
-      - /usr/src/app/node_modules
+  lamp_frontend:
+    image: ghcr.io/3underdog/lamp_web_v1:${TAG:-latest}
+    container_name: lamp_frontend
     expose:
       - 3000
     environment:
       - VIRTUAL_HOST=${HOST}
       - LETSENCRYPT_HOST=${HOST}
       - LETSENCRYPT_EMAIL=${EMAIL}
+    env_file: .env
     restart: always
+    
 
   # backend:
   #   build: ../nangmanski_backend_spring
