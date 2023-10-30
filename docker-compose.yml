@@ -40,19 +40,15 @@ services:
     restart: unless-stopped
 
   lamp_server:
-    build: # 테스트용. 추후 프로덕션용으로 변경 예정.
-      context: ../lamp_server_v1/
-      dockerfile: Dockerfile.dev
+    image: ghcr.io/3underdog/lamp_server_v1:${TAG:-latest}
     container_name: lamp_server
     expose:
       - 3000
-    volumes:
-      - ../lamp_server_v1:/usr/src/app
-      - /usr/src/app/node_modules
     environment:
       - VIRTUAL_HOST=api.${HOST}
       - LETSENCRYPT_HOST=api.${HOST}
       - LETSENCRYPT_EMAIL=${EMAIL}
+    env_file: .env
     restart: unless-stopped
 
 volumes:
