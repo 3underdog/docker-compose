@@ -40,7 +40,7 @@ services:
     restart: unless-stopped
 
   lamp_server:
-    image: ghcr.io/3underdog/lamp_server_v1:${TAG:-latest}
+    image: ghcr.io/3underdog/lamp_server_v2:${TAG:-latest}
     container_name: lamp_server
     expose:
       - 3000
